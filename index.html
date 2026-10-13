@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Đề thi Đào tạo Nhận việc 2026 - Innovation Precision</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: system-ui, -apple-system, sans-serif; }
+    .question-card { scroll-margin-top: 80px; }
+    input[type="radio"] { accent-color: #2563eb; }
+    textarea { resize: vertical; }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 min-h-screen">
+
+  <!-- Header -->
+  <header class="bg-blue-700 text-white sticky top-0 z-50 shadow-md">
+    <div class="max-w-2xl mx-auto px-4 py-3">
+      <h1 class="text-lg font-bold leading-tight">ĐỀ THI ĐÀO TẠO NHẬN VIỆC 2026</h1>
+      <p class="text-xs text-blue-100 mt-0.5">Công ty TNHH Innovation Precision Việt Nam</p>
+    </div>
+  </header>
+
+  <main class="max-w-2xl mx-auto px-4 py-6 pb-24">
+
+    <!-- Intro -->
+    <div class="bg-white rounded-xl shadow-sm border p-5 mb-6">
+      <p class="text-sm leading-relaxed">
+        Chào mừng bạn gia nhập <strong>Công ty TNHH Innovation Precision Việt Nam</strong>!<br><br>
+        Bài kiểm tra này giúp củng cố kiến thức về nội quy, chính sách công ty.<br>
+        <strong>Tổng điểm: 100</strong> | <strong>Điểm đạt: từ 70 trở lên</strong>
+      </p>
+      <div class="mt-3 text-xs text-gray-500">
+        Toàn bộ câu hỏi trắc nghiệm – Hệ thống tự chấm 100 điểm
+      </div>
+    </div>
+
+    <!-- Form -->
+    <form id="quizForm" class="space-y-8">
+
+      <!-- Thông tin cá nhân -->
+      <section class="bg-white rounded-xl shadow-sm border p-5">
+        <h2 class="font-bold text-blue-700 mb-4 text-base">THÔNG TIN NHÂN VIÊN</h2>
+        
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium mb-1">1. Ngày nhận việc <span class="text-red-500">*</span></label>
+            <input type="date" name="ngayNhanViec" required
+              class="w-full border rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium mb-1">2. Họ và tên <span class="text-red-500">*</span></label>
+            <input type="text" name="hoTen" required placeholder="Nguyễn Văn A"
+              class="w-full border rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium mb-1">3. Bộ phận <span class="text-red-500">*</span></label>
+            <select name="boPhan" required
+              class="w-full border rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="">-- Chọn bộ phận --</option>
+              <option>BP Sản xuất - Định hình</option>
+              <option>BP Sản xuất - Đúc</option>
+              <option>Bộ phận Khuôn</option>
+              <option>Bộ phận Gia công máy CNC</option>
+              <option>BP Quản lý</option>
+              <option>BP Thiết Bị</option>
+              <option>BP Kho</option>
+              <option>BP Chất lượng</option>
+              <option>BP Phát triển</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium mb-1">4. Mã nhân viên <span class="text-red-500">*</span></label>
+            <input type="text" name="maNhanVien" required placeholder="Nhập mã nhân viên"
+              class="w-full border rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+        </div>
+      </section>
+
+      <!-- PHẦN I - TRẮC NGHIỆM -->
+      <section class="bg-white rounded-xl shadow-sm border p-5">
+        <h2 class="font-bold text-blue-700 mb-1 text-base">PHẦN I – TRẮC NGHIỆM (50 điểm)</h2>
+        <p class="text-xs text-gray-500 mb-5">25 câu · Mỗi câu 2 điểm</p>
+
+        <div id="mcQuestions" class="space-y-6"></div>
+      </section>
+
+      <!-- PHẦN II - ĐÚNG/SAI -->
+      <section class="bg-white rounded-xl shadow-sm border p-5">
+        <h2 class="font-bold text-blue-700 mb-1 text-base">PHẦN II – ĐÚNG / SAI (20 điểm)</h2>
+        <p class="text-xs text-gray-500 mb-5">10 câu · Mỗi câu 2 điểm</p>
+
+        <div id="tfQuestions" class="space-y-6"></div>
+      </section>
+
+      <!-- PHẦN III - TRẮC NGHIỆM TÌNH HUỐNG (chuyển từ tự luận) -->
+      <section class="bg-white rounded-xl shadow-sm border p-5">
+        <h2 class="font-bold text-blue-700 mb-1 text-base">PHẦN III – TRẮC NGHIỆM TÌNH HUỐNG (30 điểm)</h2>
+        <p class="text-xs text-gray-500 mb-5">3 câu · Mỗi câu 10 điểm · Hệ thống tự chấm</p>
+        <div id="caseQuestions" class="space-y-6"></div>
+      </section>
+
+      <!-- Nút nộp -->
+      <div class="fixed bottom-0 left-0 right-0 bg-white border-t p-4 shadow-lg">
+        <div class="max-w-2xl mx-auto">
+          <button type="submit" id="submitBtn"
+            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3.5 rounded-xl text-base transition">
+            Nộp bài thi
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <!-- Kết quả (ẩn ban đầu) -->
+    <div id="resultBox" class="hidden bg-white rounded-xl shadow-sm border p-6 mt-6">
+      <h2 class="text-xl font-bold text-center text-blue-700 mb-4">KẾT QUẢ BÀI THI</h2>
+      <div id="resultContent" class="space-y-3 text-sm"></div>
+      <div class="mt-6 flex flex-col gap-3">
+        <button id="downloadCsv" class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-xl">
+          Tải kết quả Excel (CSV)
+        </button>
+        <button onclick="location.reload()" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-3 rounded-xl">
+          Làm lại bài mới
+        </button>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    // ========== CẤU HÌNH ==========
+    // Thay bằng Web App URL sau khi Deploy Apps Script
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyzW_2awgPCLeU3WYOOI2ryAPYKt8VgXldZPSKw9FZml8nqTTKewnMu7Fy-R1pTdc7R/exec';
+
+    // ========== DỮ LIỆU CÂU HỎI ==========
+    const mcQuestions = [
+      {
+        id: 1,
+        q: "1. Công ty TNHH Innovation Precision Việt Nam chủ yếu tham gia vào nghiên cứu và phát triển ____________, sản xuất và bán các sản phẩm nhôm hợp kim chất lượng cao, các sản phẩm liên quan đến giao thông đường sắt, điện tử 3C, trọng lượng nhẹ ô tô.",
+        options: ["A. Kỹ thuật sản xuất vật liệu hợp kim nhôm", "B. Các sản phẩm tiêu dùng", "C. Các sản phẩm điện tử", "D. Dịch vụ tài chính"],
+        correct: "A"
+      },
+      {
+        id: 2,
+        q: "2. Triết lý doanh nghiệp của Công ty là?",
+        options: ["A. Tập trung vào sản lượng", "B. Tập trung vào doanh thu", "C. Sáng tạo thành tựu tương lai", "D. Không có triết lý doanh nghiệp"],
+        correct: "C"
+      },
+      {
+        id: 3,
+        q: "3. Triết lý đạo đức của Công ty là gì?",
+        options: ["A. Tập trung nghiên cứu công nghệ", "B. Phục vụ khách hàng, phát triển doanh nghiệp, mang lại lợi ích cho nhân viên, trả lại lợi ích cho xã hội.", "C. Cắt giảm nhân sự, tăng năng suất máy móc", "D. Hoạt động từ thiện và quyên góp cộng đồng"],
+        correct: "B"
+      },
+      {
+        id: 4,
+        q: "4. Mục đích của Công ty là?",
+        options: ["A. Tối đa hóa thời gian làm việc", "B. Vì sự hài lòng và lòng trung thành của khách hàng", "C. Đổi mới khoa học và công nghệ để thúc đẩy sự phát triển và tiến bộ của ngành", "D. Tăng trưởng doanh số"],
+        correct: "C"
+      },
+      {
+        id: 5,
+        q: "5. Phương châm chất lượng của Công ty là?",
+        options: ["A. Theo yêu cầu của Khách hàng.", "B. Lấy chất lượng làm gốc, tiếp tục cải tiến, tuân thủ pháp luật, phục vụ khách hàng", "C. Ưu tiên số lượng hơn chất lượng", "D. Có thể bỏ qua lỗi nhỏ"],
+        correct: "B"
+      },
+      {
+        id: 6,
+        q: "6. Phương châm an toàn của Công ty là?",
+        options: ["A. Sản xuất an toàn, vận hành đáng tin", "B. An toàn là trách nhiệm của Bộ phận An toàn", "C. Có thể bỏ qua các quy tắc khi bận", "D. Chỉ cần an toàn khi có kiểm tra"],
+        correct: "A"
+      },
+      {
+        id: 7,
+        q: "7. Nội dung cốt lõi của hệ thống quản lý An toàn sức khỏe nghề nghiệp là?",
+        options: ["A. Chỉ xử lý tai nạn sau khi xảy ra", "B. Xác định các nguồn nguy hiểm, đánh giá rủi ro và các biện pháp kiểm soát", "C. Không cần người lao động tham gia", "D. Chỉ kiểm tra hồ sơ, giấy tờ."],
+        correct: "B"
+      },
+      {
+        id: 8,
+        q: "8. Phương châm quản lý quá trình chất độc hại được thực hiện theo nội dung nào?",
+        options: ["A. Mua sắm xanh, quản lý chặt chẽ", "B. Chỉ xử lý khi có sự cố", "C. Không cần sự tham gia của nhân viên", "D. Chỉ tập trung vào việc lưu trữ hồ sơ và khai báo định kỳ cho cơ quan nhà nước."],
+        correct: "A"
+      },
+      {
+        id: 9,
+        q: "9. Bản thân kết hôn được nghỉ như thế nào?",
+        options: ["A. Nghỉ 3 ngày có hưởng lương", "B. Nghỉ 3 ngày không hưởng lương", "C. Nghỉ 5 ngày có hưởng lương", "D. Bất cứ khi nào nhân viên muốn"],
+        correct: "A"
+      },
+      {
+        id: 10,
+        q: "10. Quyền tham gia hoặc từ chối tham gia công đoàn hoặc các tổ chức khác được gọi là quyền gì?",
+        options: ["A. Quyền tự do hiệp hội", "B. Quyền sở hữu tài sản", "C. Quyền nghỉ phép", "D. Quyền thay đổi ca"],
+        correct: "A"
+      },
+      {
+        id: 11,
+        q: "11. Khi công nhân viên phát hiện bản thân quên chấm công, hành động đúng đắn và chuẩn xác theo quy trình là?",
+        options: ["A. Không cần báo cáo", "B. Thông báo với Tổ trưởng/ cấp trên/ Nhân viên thống kê để làm ngay \"Đơn xin bù thẻ\" và xác nhận với Bộ phận nhân sự.", "C. Nhờ đồng nghiệp quẹt thẻ thay", "D. Chờ đến cuối tháng khi nhận bảng chấm công, nếu thấy thiếu thì mới kiến nghị."],
+        correct: "B"
+      },
+      {
+        id: 12,
+        q: "12. Công ty quy định một ngày chấm công như thế nào?",
+        options: ["A. Không cần chấm công", "B. Nhân viên tự lựa chọn", "C. 4 lần đối với Khối Văn phòng, 2 lần đối với Khối Sản xuất", "D. Chỉ chấm công khi có tăng ca"],
+        correct: "C"
+      },
+      {
+        id: 13,
+        q: "13. Theo quy định về chấm công, khi nghỉ phép công nhân viên cần thực hiện thủ tục gì?",
+        options: ["A. Gửi \"Đơn xin nghỉ phép\" theo nội quy công ty (chậm nhất là 1 giờ sau khi nghỉ).", "B. Gửi \"Đơn xin nghỉ phép\" vào ngày đầu tiên đi làm trở lại sau khi đã nghỉ xong.", "C. Chỉ cần nhắn tin cho cấp trên.", "D. Tự ý nghỉ, không cần thông báo với ai."],
+        correct: "A"
+      },
+      {
+        id: 14,
+        q: "14. Theo nội quy Công ty, người lao động làm việc trong điều kiện bình thường làm đủ 12 tháng tại Công ty thì được nghỉ hằng năm hưởng nguyên lương bao nhiêu ngày?",
+        options: ["A. 10 ngày", "B. 12 ngày", "C. 14 ngày", "D. Theo thỏa thuận"],
+        correct: "B"
+      },
+      {
+        id: 15,
+        q: "15. Tăng ca ca ngày vào ngày nghỉ lễ, tết được tính hệ số:",
+        options: ["A. 150%", "B. 200%", "C. 270%", "D. 300%"],
+        correct: "D"
+      },
+      {
+        id: 16,
+        q: "16. Nội dung nào sau đây KHÔNG thuộc các khoản thông tin về lương, trợ cấp và khấu trừ mà người lao động được nhận?",
+        options: ["A. Thông tin về lương cơ bản và tiền làm thêm giờ.", "B. Thông tin về phụ cấp, trợ cấp và thưởng (nếu có).", "C. Các khoản khấu trừ bắt buộc như BHXH, BHYT, BHTN, thuế TNCN, đoàn phí", "D. Chi phí quản lý và vận hành chung của công ty."],
+        correct: "D"
+      },
+      {
+        id: 17,
+        q: "17. Khi nghỉ việc, nếu không làm thủ tục và bàn giao theo quy định của Công ty thì bị coi là gì?",
+        options: ["A. Tự ý nghỉ việc", "B. Hoàn thành thủ tục", "C. Không có vấn đề gì", "D. Được coi là nghỉ phép"],
+        correct: "A"
+      },
+      {
+        id: 18,
+        q: "18. Tất cả nhân viên được tuyển dụng đều dựa trên nguyên tắc nào?",
+        options: ["A. Bắt buộc", "B. Tự nguyện, không cưỡng chế, không lừa gạt, không đe dọa và không ép buộc", "C. Dụ dỗ công nhân viên đến làm việc", "D. Cưỡng chế, lừa gạt công nhân viên làm việc"],
+        correct: "B"
+      },
+      {
+        id: 19,
+        q: "19. Cấm đối xử bất bình đẳng dựa trên dân tộc, tôn giáo, giới tính, quốc tịch, tín ngưỡng, màu da, tuổi tác, mang thai thuộc yêu cầu quản lý nào?",
+        options: ["A. Quản lý chống phân biệt đối xử", "B. Quản lý sản xuất", "C. Quản lý tài sản", "D. Quản lý an toàn"],
+        correct: "A"
+      },
+      {
+        id: 20,
+        q: "20. Việc doanh nghiệp từ chối tiếp nhận ứng viên dựa trên khuynh hướng tình dục của họ là hành vi phân biệt đối xử nào?",
+        options: ["A. Phân biệt đối xử về thành phần xã hội", "B. Phân biệt đối xử về trình độ và năng lực chuyên môn.", "C. Phân biệt đối xử về giới tính, khuynh hướng tình dục của người lao động.", "D. Phân biệt đối xử về tín ngưỡng, tôn giáo"],
+        correct: "C"
+      },
+      {
+        id: 21,
+        q: "21. Tùy vào mức độ, hình thức xử lý kỷ luật đối với hành vi phân biệt đối xử có thể bao gồm nhắc nhở, khiển trách, cảnh cáo, ________ hoặc sa thải.",
+        options: ["A. Kéo dài thời hạn nâng lương.", "B. Cho nghỉ phép", "C. Tạm hoãn hợp đồng lao động", "D. Không xử lý"],
+        correct: "A"
+      },
+      {
+        id: 22,
+        q: "22. Các dấu hiệu nhận biết cưỡng bức lao động gồm:",
+        options: ["A. Đưa thông tin sai lệch về công việc, tiền lương, điều kiện làm việc để dụ dỗ người lao động", "B. Hạn chế đi lại, không cho rời khỏi vị trí làm việc và bị cô lập", "C. Dùng bạo lực thể xác, lăng mạ, quấy rối tình dục hoặc đe dọa gây tổn hại cho người lao động và người thân của họ", "D. Cả 3 đáp án trên."],
+        correct: "D"
+      },
+      {
+        id: 23,
+        q: "23. Khiếu nại có thể thực hiện qua điện thoại, email, hòm thư góp ý hoặc trao đổi trực tiếp với HR, và có thể thực hiện dưới dạng nào?",
+        options: ["A. Công khai hoặc ẩn danh", "B. Chỉ công khai", "C. Chỉ ẩn danh", "D. Chỉ bằng văn bản nộp trực tiếp"],
+        correct: "A"
+      },
+      {
+        id: 24,
+        q: "24. Khi nhân viên có khiếu nại, Công ty cam kết sẽ làm gì?",
+        options: ["A. Tiếp nhận, bảo mật tuyệt đối nội dung, danh tính người khiếu nại và xử lý kịp thời theo quy định", "B. Không tiếp nhận", "C. Chỉ xử lý khi có người quản lý yêu cầu", "D. Công khai người khiếu nại"],
+        correct: "A"
+      },
+      {
+        id: 25,
+        q: "25. Theo quy định của Công ty, những loại thông tin nào của người tố cáo cần được áp dụng chế độ bảo mật nghiêm ngặt nhất?",
+        options: ["A. Nội dung phản ánh và các bằng chứng đi kèm.", "B. Thời gian nhận được khiếu nại", "C. Thông tin tuyển dụng công khai", "D. Họ tên, địa chỉ và tất cả các thông tin cá nhân khác có thể tiết lộ danh tính của người tố cáo."],
+        correct: "D"
+      }
+    ];
+
+    const tfQuestions = [
+      { id: 26, q: "26. Nhân viên trì hoãn thời gian lên/ xuống ca theo quy định được coi là đi muộn/ về sớm.", correct: "Đúng" },
+      { id: 27, q: "27. Trong giờ làm việc bình thường, nhân viên có thể xử lý chuyện riêng tư, cá nhân không chính đáng.", correct: "Sai" },
+      { id: 28, q: "28. Nhân viên từ ngày nhận việc đến hết ngày nghỉ việc, phải tiến hành chấm công theo quy định của công ty.", correct: "Đúng" },
+      { id: 29, q: "29. Công ty không cho phép nhân viên đánh nhau, uống rượu, cờ bạc, tụ tập gây sự trong khu vực công ty hoặc khuôn viên công ty.", correct: "Đúng" },
+      { id: 30, q: "30. Công ty cho phép người lao động có thể cho người khác mượn giấy tờ như thẻ nhân viên để sử dụng.", correct: "Sai" },
+      { id: 31, q: "31. Cấm phân biệt giới tính là yêu cầu cả nam và nữ làm công việc giống nhau.", correct: "Sai" },
+      { id: 32, q: "32. Nhân viên hoặc đại diện nhân viên bị đối xử không công bằng, nếu không hài lòng với kết quả xử lý khiếu nại, bị ngược đãi hoặc bị công ty trả thù vì khiếu nại có thể khiếu nại tới cơ quan quản lý lao động địa phương theo quy định của pháp luật.", correct: "Đúng" },
+      { id: 33, q: "33. Để tiện cho việc tuyển dụng và nhân viên vào nhà máy làm việc, công ty có thể thu giữ chứng minh thư, hộ chiếu hoặc các giấy tờ tùy thân khác của nhân viên, không giới hạn thời gian.", correct: "Sai" },
+      { id: 34, q: "34. Nếu người tố cáo bị kỷ luật hoặc bị đối xử bất công vì đã tố cáo, Bộ phận Quản lý phải xử lý theo thẩm quyền hoặc báo cáo cấp có thẩm quyền để giải quyết. Nếu người tố cáo bị đe dọa đến an toàn cá nhân, các cơ quan liên quan phải kịp thời áp dụng biện pháp bảo vệ.", correct: "Đúng" },
+      { id: 35, q: "35. Khiếu nại có thể dựa trên suy đoán hoặc thông tin không chính xác để phản ánh người khác.", correct: "Sai" }
+    ];
+
+    // ========== PHẦN III - TÌNH HUỐNG (10 điểm/câu) ==========
+    const caseQuestions = [
+      {
+        id: 36,
+        q: "1. Trong thông báo tuyển dụng Công ty A đưa ra các điều kiện: Không tuyển người không có hộ khẩu tại địa phương, không tuyển phụ nữ đang mang thai, không tuyển người nước ngoài dù có đủ điều kiện làm việc hợp pháp tại Việt Nam, chỉ tuyển ứng viên dưới 25 tuổi. Ngoài ra công ty còn yêu cầu ứng viên cam kết: Tăng ca vô điều kiện theo yêu cầu của công ty, thời gian đi vệ sinh không được quá 05 phút/lần.<br><br><strong>Hỏi: Công ty A có các hành vi vi phạm nào?</strong>",
+        options: [
+          "A. Chỉ vi phạm quy định về thời gian làm việc",
+          "B. Phân biệt đối xử (mang thai, hộ khẩu, quốc tịch, tuổi tác) và cưỡng ép lao động (tăng ca vô điều kiện, hạn chế thời gian vệ sinh)",
+          "C. Không có vi phạm nào vì đây là quyền của công ty",
+          "D. Chỉ vi phạm về tuyển dụng người nước ngoài"
+        ],
+        correct: "B"
+      },
+      {
+        id: 37,
+        q: "2. Trong ngày người lao động nhận việc, Công ty A yêu cầu nộp và giữ bản gốc giấy tờ tùy thân (CCCD, bằng cấp gốc...). Khi người lao động cần dùng CCCD, công ty yêu cầu nộp 500.000 đồng tiền đặt cọc mới được nhận lại. Ngoài ra còn yêu cầu nộp tiền đặt cọc đồng phục, tiền sử dụng công cụ dụng cụ.<br><br><strong>Hỏi: Công ty A có những hành vi vi phạm nào?</strong>",
+        options: [
+          "A. Không có vi phạm",
+          "B. Chỉ vi phạm về giữ giấy tờ tùy thân",
+          "C. Vi phạm quy định về tự do tuyển dụng và cưỡng chế lao động: thu giữ giấy tờ tùy thân; bắt người lao động phải đóng tiền quần áo, tiền sử dụng công cụ",
+          "D. Chỉ vi phạm về tiền đặt cọc đồng phục"
+        ],
+        correct: "C"
+      },
+      {
+        id: 38,
+        q: "3. Kể tên ít nhất 4 kênh khiếu nại đang có hiện tại của công ty.",
+        options: [
+          "A. Chỉ Phòng Nhân sự và Giám đốc",
+          "B. Ứng dụng ULULA, Phòng Nhân sự, Công đoàn, Hotline 0238 375 3333, Hòm thư góp ý nội bộ, Phiếu khảo sát mức độ hài lòng, Hội nghị người lao động, Đối thoại ba bên",
+          "C. Chỉ Hotline và email",
+          "D. Chỉ Công đoàn và Thanh tra lao động"
+        ],
+        correct: "B"
+      }
+    ];
+
+    // ========== RENDER CÂU HỎI ==========
+    function renderMC() {
+      const container = document.getElementById('mcQuestions');
+      mcQuestions.forEach((item, idx) => {
+        const div = document.createElement('div');
+        div.className = 'question-card border-b pb-5 last:border-0';
+        div.innerHTML = `
+          <p class="text-sm font-medium mb-3">${item.q}</p>
+          <div class="space-y-2">
+            ${item.options.map((opt, i) => {
+              const val = opt.charAt(0);
+              return `
+                <label class="flex items-start gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                  <input type="radio" name="mc_${item.id}" value="${val}" required class="mt-1" />
+                  <span class="text-sm">${opt}</span>
+                </label>
+              `;
+            }).join('')}
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function renderCase() {
+      const container = document.getElementById('caseQuestions');
+      if (!container) return;
+      caseQuestions.forEach((item) => {
+        const div = document.createElement('div');
+        div.className = 'question-card border-b pb-5 last:border-0';
+        div.innerHTML = `
+          <p class="text-sm font-medium mb-3">${item.q}</p>
+          <div class="space-y-2">
+            ${item.options.map(opt => {
+              const val = opt.charAt(0);
+              return `
+                <label class="flex items-start gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                  <input type="radio" name="case_${item.id}" value="${val}" required class="mt-1" />
+                  <span class="text-sm">${opt}</span>
+                </label>
+              `;
+            }).join('')}
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function renderTF() {
+      const container = document.getElementById('tfQuestions');
+      tfQuestions.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'question-card border-b pb-5 last:border-0';
+        div.innerHTML = `
+          <p class="text-sm font-medium mb-3">${item.q}</p>
+          <div class="flex gap-6">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="radio" name="tf_${item.id}" value="Đúng" required />
+              <span class="text-sm">Đúng</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="radio" name="tf_${item.id}" value="Sai" required />
+              <span class="text-sm">Sai</span>
+            </label>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    renderMC();
+    renderTF();
+    renderCase();
+
+    // ========== XỬ LÝ NỘP BÀI ==========
+    let lastResult = null;
+
+    document.getElementById('quizForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData.entries());
+
+      // Tính điểm MC (2 điểm/câu)
+      let mcScore = 0;
+      const mcAnswers = {};
+      mcQuestions.forEach(q => {
+        const ans = data[`mc_${q.id}`];
+        mcAnswers[q.id] = ans || '';
+        if (ans === q.correct) mcScore += 2;
+      });
+
+      // Tính điểm TF (2 điểm/câu)
+      let tfScore = 0;
+      const tfAnswers = {};
+      tfQuestions.forEach(q => {
+        const ans = data[`tf_${q.id}`];
+        tfAnswers[q.id] = ans || '';
+        if (ans === q.correct) tfScore += 2;
+      });
+
+      // Tính điểm Case (10 điểm/câu)
+      let caseScore = 0;
+      const caseAnswers = {};
+      caseQuestions.forEach(q => {
+        const ans = data[`case_${q.id}`];
+        caseAnswers[q.id] = ans || '';
+        if (ans === q.correct) caseScore += 10;
+      });
+
+      const totalScore = mcScore + tfScore + caseScore; // tối đa 100
+
+      lastResult = {
+        ngayNhanViec: data.ngayNhanViec,
+        hoTen: data.hoTen,
+        boPhan: data.boPhan,
+        maNhanVien: data.maNhanVien,
+        mcScore,
+        tfScore,
+        caseScore,
+        objectiveScore: totalScore,
+        totalScore,
+        mcAnswers,
+        tfAnswers,
+        caseAnswers,
+        submittedAt: new Date().toLocaleString('vi-VN')
+      };
+
+      // Gửi dữ liệu lên Google Sheet (nếu đã cấu hình SCRIPT_URL)
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Đang lưu kết quả...';
+
+      const sendData = async () => {
+        if (SCRIPT_URL && SCRIPT_URL !== 'PASTE_YOUR_WEB_APP_URL_HERE') {
+          try {
+            await fetch(SCRIPT_URL, {
+              method: 'POST',
+              mode: 'no-cors', // Apps Script cần no-cors
+              headers: { 'Content-Type': 'text/plain' },
+              body: JSON.stringify(lastResult)
+            });
+          } catch (err) {
+            console.log('Lỗi gửi dữ liệu (có thể bỏ qua nếu dùng no-cors):', err);
+          }
+        }
+      };
+
+      sendData().finally(() => {
+        // Hiển thị kết quả
+        document.getElementById('quizForm').classList.add('hidden');
+        const box = document.getElementById('resultBox');
+        box.classList.remove('hidden');
+
+        const isPass = totalScore >= 70;
+        document.getElementById('resultContent').innerHTML = `
+          <div class="text-center mb-4">
+            <div class="text-4xl font-bold ${isPass ? 'text-green-600' : 'text-red-600'}">${totalScore}/100</div>
+            <div class="text-sm mt-1 ${isPass ? 'text-green-600' : 'text-red-600'} font-medium">
+              ${isPass ? '✅ ĐẠT' : '❌ CHƯA ĐẠT'}
+            </div>
+            <div class="text-xs text-gray-500 mt-2">
+              Trắc nghiệm: ${mcScore}/50 · Đúng/Sai: ${tfScore}/20 · Tình huống: ${caseScore}/30
+            </div>
+          </div>
+          <div class="bg-gray-50 rounded-lg p-4 space-y-2 text-sm">
+            <p><strong>Họ tên:</strong> ${lastResult.hoTen}</p>
+            <p><strong>Mã NV:</strong> ${lastResult.maNhanVien}</p>
+            <p><strong>Bộ phận:</strong> ${lastResult.boPhan}</p>
+            <p><strong>Ngày nhận việc:</strong> ${lastResult.ngayNhanViec}</p>
+            <p><strong>Thời gian nộp:</strong> ${lastResult.submittedAt}</p>
+          </div>
+          <p class="text-xs text-center text-gray-500 mt-4">
+            Kết quả đã được lưu vào hệ thống.
+          </p>
+        `;
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Nộp bài thi';
+      });
+    });
+
+    // Tải CSV
+    document.getElementById('downloadCsv').addEventListener('click', function() {
+      if (!lastResult) return;
+
+      const rows = [
+        ['Trường', 'Giá trị'],
+        ['Ngày nhận việc', lastResult.ngayNhanViec],
+        ['Họ và tên', lastResult.hoTen],
+        ['Bộ phận', lastResult.boPhan],
+        ['Mã nhân viên', lastResult.maNhanVien],
+        ['Thời gian nộp', lastResult.submittedAt],
+        ['Điểm Trắc nghiệm (50)', lastResult.mcScore],
+        ['Điểm Đúng/Sai (20)', lastResult.tfScore],
+        ['Điểm Tình huống (30)', lastResult.caseScore],
+        ['TỔNG ĐIỂM (100)', lastResult.totalScore],
+        ['Kết quả', lastResult.totalScore >= 70 ? 'ĐẠT' : 'CHƯA ĐẠT']
+      ];
+
+      const csvContent = rows.map(r => r.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',')).join('\n');
+      const blob = new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `KetQua_${lastResult.maNhanVien}_${lastResult.hoTen.replace(/\s+/g, '_')}.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+  </script>
+</body>
+</html>
